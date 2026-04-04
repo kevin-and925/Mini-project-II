@@ -117,17 +117,53 @@ Elle permet de faire des analyses afin de :
 # 8- Considérations éthiques et méthodes d’explicabilité
 # 8.1- Considérations éthiques
 Dans ce projet on a plusieurs éthiques qui sont pris en compte tels que : 
--la p
+-le dataset;
+-Les erreurs de classification;
+-La limitation du modéle
+-l'importance d'avoir moins confiance a l'automatisation des avis;
 
-7-3 Pratique de publication
--A travers le dépôt public
--A travers la documentation
+# 8.2- Explicabilité
+Pour mieux comprendre les décisions du modèle, des méthodes d’explicabilité sont utilisées, notamment :
+-SHAP;
+-LIME;
+Ces outils permettent d’identifier quels mots ou quelles parties d’une critique influencent le plus la prédiction.
 
-7-4 Protocole de signalement et correction des bogues
--Signaler un bug
--Créer une branche pour la correction Soumettre une pull request
--Mettre a jour la documentation 
--modifier la communauté des corrections majeures
+# 9- Aperçu du déploiement du système embarqué
+Une partie du projet s’intéresse à la possibilité de déployer le modèle dans un environnement embarqué.
+L'objectif est d'adapter le système afin qu’il puisse fonctionner 
+sur une plateforme à ressources limitées, comme un microcontrôleur ou un dispositif embarqué.
+
+Le déploiement sur un systéme embarqué impose plusieurs limites tels que:
+-une mémoire restreinte;
+-La capacité de calcul réduite;
+-La consommation énergétique limitée;
+
+# 10- Responsabilités liées à la publication du code
+La publication de ce code source implique plusieurs responsabilités :
+
+-On fourni un code clair, propre et compréhensible;
+-On a documenter les étapes importantes du projet;
+-On a éviter au maximun de publier des données sensibles ou non autorisées;
+-On a signaler les limites du modèle;
+
+# 11- Justification de la licence open-source
+
+La licence choisie est la licence **MIT LICENSE**, parce que elle va permettre
+a d'autres utilisateurs de s'en servir(Le code) et dans un cadre educatif de, le
+modifier et l'ajouter dans d'autres projet. Cette licence est fortement favorable même sur le plan professionnelle.
+
+# 12- Comparaison des pratiques de publication du code
+La comparaison porte sur le Dépot public et le dépot, il faut savoir que le dépot public lui il favorise la transparence, la collaboration ainsi que la 
+visibilité du projet. Tandis que le dépot privé limite l'accés et aussi 
+réduit la transparence, la collaboration externe ainsi que la diffusion de 
+certaines connaissances. 
+Il faut aussi savoir que si un code un bien documenté il est plus facile a comprendre alors que si il est peu documentéil sera difficile a reproduire.
+
+
+
+
+
+
 
 
 
