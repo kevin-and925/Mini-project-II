@@ -8,12 +8,14 @@ Agossou Fulbert(AGOF722040000)
 
 ## 1. Aperçu du projet et objectifs
 
-Ce mini-projet a pour but de développer un système avancé d’analyse des sentiments appliqué à des critiques de films, en utilisant des techniques d’apprentissage profond, plus précisément des réseaux de neurones récurrents (**RNN**) avec des couches **Bidirectional LSTM**.
+Ce mini-projet a pour but de développer un système avancé d’analyse des sentiments 
+appliqué à des critiques de films, en utilisant des techniques d’apprentissage profond,
+plus précisément des réseaux de neurones récurrents (RNN) avec des couches Bidirectional LSTM.
 
 L’objectif principal est de construire un modèle capable de classifier automatiquement une critique comme :
 
-- positive
-- négative
+# positive 
+# négative 
 
 Ce projet couvre l’ensemble de la chaîne de traitement :
 
@@ -34,16 +36,17 @@ Les principales étapes réalisées dans ce projet sont les suivantes :
 
 1. Préparation des données
 2. Prétraitement du texte
-3. **Tokenisation et vectorisation des séquences**
-4. **Conception et entraînement du modèle**
-5. **Ajustement de certains hyperparamètres**
-6. **Évaluation du modèle**
-7. **Explicabilité avec SHAP et LIME**
-8. **Considérations éthiques**
-9. **Considérations de déploiement embarqué**
+3. Tokenisation et vectorisation des séquences
+4. Conception et entraînement du modèle
+5. Ajustement de certains hyperparamètres
+6. Évaluation du modèle
+7. Explicabilité avec SHAP et LIME
+8. Considérations éthiques
+9. Considérations de déploiement embarqué
 
-# II-  Instruction pour le téléchargement et le prétraitement des données
-Pour ce projet, il faudrait tout d'abord commencer par vérifier si on a
+# 3.  Instruction pour le téléchargement et le prétraitement des données
+
+3.1 Pour ce projet, il faudrait tout d'abord commencer par vérifier si on a
 instaler nos bibliothèques dans notre Anaconda prompt et aprés importer ces bliothèques qui sont :
 `pip install numpy`
 `pip install nltk`
@@ -53,51 +56,68 @@ instaler nos bibliothèques dans notre Anaconda prompt et aprés importer ces bl
 `pip install scikit-learn`
 `pip install lime`
 `pip install codecarbon`
-Une fois les bibliothèques installer et vérifier, on va par la suite procéder
-au téléchargement du fichier IMBD directement sur le site indiquer: 
+
+# 3.2 Téléchargement du dataset
+
+téléchargement du fichier IMBD  sur le site indiquer: 
 [[https://ai.stanford.edu/%7Eamaas/data/sentiment/](https://ai.stanford.edu/~amaas/data/sentiment/)]
 il faut que l'utilisateur qui veut réaliser ce projet se rassure 
-que ce fichier soit placer au bonne endroit. Par la suite : 
+que ce fichier soit placer au bonne endroit. Par la suite il faut l'extraire 
 
-## Préparation des données et prétraitement de texte : 
+## 3.3 Préparation des données et prétraitement du texte
+Ici, voila ce qui est demander : 
 
--le Nettoyage de texte(suppression des balises, conversion en minuscules, suppression de la ponctuation et des caractères spéciaux, ainsi que la suppression)
+- Charger et inspecter les données IMDB
+- Convertir le texte en minuscule
+- supprime les balises HTML
+- supprime la ponctuation
+- supprime les stopwords
+- nettoyage du texte
+- Convertir les avis en séquences numériques :
+  # Positive = 1
+  # Négative = 0
 
 
-# III- Étapes de formation et d'évaluation 
-Dans cet partie on va voir ce qui suit 
+# 4 Tokenisation et vectorisation des séquences
 
-1-la division des données(il s'agit de séparer le dataset en ensemble d'entrainement)
-2-formation des modéles(on parle des modéles classiques comme des modéles avancés)
-3-l'évaluation(qui comprends les matrices de confusion, F1-Score, etc...)
+Dans cette parties voici ce que l'on doit réalisées :
+-On va faire la création d’un vocabulaire basé sur les mots les plus fréquents
+-On va faire la génération d’un word index
+-On fera la conversion des critiques en séquences d’entiers
+-une application de padding pour rendre toutes les séquences de même longueur
 
-## IV- Résultats de l'analyse de l'empreinte carbone
-Dans notre Anaconda on déjà télécharger la bibliothèques adéquates. 
-Son utilisation va nous permettre de mesurer l'impact énergetique
-"from codecarbon import EmissionsTracker"
+## 5- Conception et entraînement du modèle
+## 5.1- Architecture du modèle
+Concernant la conception et l'entrainement on utilise le modéle RNN
+qui est un réseau neuronal qui utilise : 
 
-## V- Considérations éthiques et méthodes d'explicabilité
-Ici il s'agit de respecter la vie privée des utilisateurs et de faire la prévention
-des biais qui sont liés au genre, a la race ou à d'autres caractéristiques
-pour mieux comprendre l'explicabilité on doit utiliser la bibliothèques
-"import shap"
+-une couche Embedding
+-deux couches Bidirectional LSTM empilées
+-Une couche Dense 
+-Une couche Dropout
+-une couche de sortie avec sigmaoid
 
-## VI- Aperçu du déploiement des sytèmes embarqués
-On va faire la conversion du modèle qui sera comptabible avec un microcontrôleurs(Arduino)
-en prenant en compte certaines contraintes du Arduino qui sont la limite de 
-mémoire et tout ce qui l'entoure
+## 5.2- Compilation du modéle
+le Modéle a été compiler en utilisant optimizer(adam), le loss et metric(accuracy)
 
-## VII- Responsabilités liées à la publication du code :
-7-1 Responsabiltés
--Garder un code propre, clair et qui fonctionne bien.
--Vérifie qu'il n'y a pas de données sensibles.
--être vigilant sur la reproductibilité des résultats.
+## 5.3- EarlyStopping
+l'objectif de EarlyStopping est de limiter le surapprentissage autrement appeler **Overfitting** qui utilise les paramétres tel que (val_loss, patience...) pour arrêter l'entraînement
 
-7-2 Licences open source
--MIT License
--Cette license est utilisé parce que elle permet a d'autres : 
-->De réutiliser le code
-->De modifier le code
+## 6- Étapes d’évaluation du modèle
+Pour faire l'évaluation du modéle il va falloir utiliser certaines données de validation ainsi que les données de test.
+
+## 7- Résultats de l’analyse de l’empreinte carbone
+Dans ce projet, l’empreinte carbone de l’entraînement est mesurée à l’aide de la bibliothèque CodeCarbon.
+Elle permet de faire des analyses afin de : 
+
+-mieux comprendre le coût environnemental ;
+-Comparer plusieurs approches selon leur efficacité énergétique;
+-de sensibiliser aussi l’impact écologique des modèles d’IA
+
+# 8- Considérations éthiques et méthodes d’explicabilité
+# 8.1- Considérations éthiques
+Dans ce projet on a plusieurs éthiques qui sont pris en compte tels que : 
+-la p
 
 7-3 Pratique de publication
 -A travers le dépôt public
